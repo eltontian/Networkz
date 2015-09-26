@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.LoaderManager.LoaderCallbacks;
 import android.content.ContentResolver;
 import android.content.CursorLoader;
+import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
@@ -75,10 +76,14 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
         });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        final Activity self = this;
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
+                Intent intent = new Intent(self, ForkActivity.class);
+                intent.putExtra("user", "userrr:passwordddd");
+                startActivity(intent);
             }
         });
 
@@ -146,12 +151,12 @@ public class LoginActivity extends Activity implements LoaderCallbacks<Cursor> {
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
-        return email.contains("@");
+        return true;
     }
 
     private boolean isPasswordValid(String password) {
         //TODO: Replace this with your own logic
-        return password.length() > 4;
+        return true;
     }
 
     /**
