@@ -4,21 +4,40 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="elton.networker.ForkActivity">
+    tools:context="elton.networker.ForkActivity"
+    android:id="@+id/forkActivityContainer">
 
-    <Button
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/addButton"
-        android:layout_alignTop="@+id/viewButton"
-        android:layout_alignStart="@+id/viewButton" />
+        android:id="@+id/buttonContainer"
+        android:layout_centerInParent="true"
+        android:paddingBottom="100dp">
 
-    <Button
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addContactButton"
+            android:background="@drawable/common_signin_btn_text_focus_dark"
+            android:cropToPadding="false"
+            android:layout_marginBottom="50dp" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/viewContactButon"
+            android:background="@drawable/common_signin_btn_text_focus_dark"
+            android:layout_below="@+id/addContactButton"
+            android:layout_marginTop="50dp" />
+    </RelativeLayout>
+
+    <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/viewButton"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/addTileButton"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:background="@drawable/common_signin_btn_icon_focus_dark"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp" />
 </RelativeLayout>
