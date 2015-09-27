@@ -3,6 +3,7 @@ package elton.networker;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseUser;
 
@@ -90,10 +92,10 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
         if (i == 1) {
-            setUpAddConnections();
+            getAddConnections();
         } else if (i == 0) {
             setUpViewConnections();
-        } else if (i == 2) { // i == 2
+        } else if (i == 2) {
             setUpAddTile();
         } else {
             ParseUser.logOut();
@@ -102,15 +104,50 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         }
     }
 
-    private void setUpAddConnections() {
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        AddContactFragment addContactFragment = new AddContactFragment();
+    private void getAddConnections() {
+        try {
+            Intent intent = new Intent("com.google.zxing.client.android.SCAN");
+            intent.putExtra("SCAN_MODE", "QR_CODE_MODE"); // "PRODUCT_MODE for bar codes
 
-        fragmentTransaction.replace(R.id.mainContentContainer, addContactFragment);
-        fragmentTransaction.commit();
-        activityState = MainActivityState.ADD_CONTACT;
-        navigationDrawer.closeDrawer(Gravity.LEFT);
+            startActivityForResult(intent, 0);
+        } catch (Exception e) {
+            Uri marketUri = Uri.parse("market://details?id=com.google.zxing.client.android");
+            Intent marketIntent = new Intent(Intent.ACTION_VIEW, marketUri);
+            startActivity(marketIntent);
+        }
+    }
+
+    private void setUpAddConnections(String username) {
+        if (username != null) {
+            FragmentManager fragmentManager = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            AddContactFragment addContactFragment = new AddContactFragment();
+
+            fragmentTransaction.replace(R.id.mainContentContainer, addContactFragment);
+            fragmentTransaction.commit();
+            activityState = MainActivityState.ADD_CONTACT;
+            navigationDrawer.closeDrawer(Gravity.LEFT);
+        } else {
+            // TODO Handle an error
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String contents = null;
+
+        if (requestCode == 0) {
+            if (resultCode == RESULT_OK) {
+                contents = data.getStringExtra("SCAN_RESULT");
+                Toast.makeText(this, contents, Toast.LENGTH_LONG).show();
+            }
+            if(resultCode == RESULT_CANCELED){
+                Toast.makeText(this, "QR Code Error", Toast.LENGTH_LONG).show();
+            }
+        }
+
+        setUpAddConnections(contents);
     }
 
     private void setUpViewConnections() {
