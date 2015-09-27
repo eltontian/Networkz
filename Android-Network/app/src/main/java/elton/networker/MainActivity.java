@@ -16,10 +16,12 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
@@ -34,7 +36,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
     public static ArrayList<Tile> tiles;
     public static ArrayList<PictureText> contactsList;
-    public static ArrayList<PictureText> userTiles;
+    public static ArrayList<Tile> userTiles;
     private MainActivityState activityState;
 
     @Override
@@ -66,10 +68,14 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         contactsList.add(new PictureText(R.drawable.ic_launcher, "Brandon Grink"));
         contactsList.add(new PictureText(R.drawable.ic_launcher, "Rahul Menon"));
 
+        ArrayList<ParseObject> result = (ArrayList) ParseUser.getCurrentUser().getList("tiles");
         userTiles = new ArrayList<>();
-        userTiles.add(new PictureText(R.drawable.ic_launcher, "Tile 1"));
-        userTiles.add(new PictureText(R.drawable.ic_launcher, "Tile 2"));
-        userTiles.add(new PictureText(R.drawable.ic_launcher, "Tile 3"));
+        if (result != null) {
+            Iterator<ParseObject> iterator = result.iterator();
+            while(iterator.hasNext()) {
+                userTiles.add(new Tile(iterator.next().getString("type")));
+            }
+        }
 
         getParseData();
         setUpNavigationDrawer();

@@ -39,9 +39,9 @@ public class AddContactFragment extends Fragment implements AdapterView.OnItemCl
         ListView listView = (ListView) mView.findViewById(R.id.profileTileList);
         listView.setOnItemClickListener(this);
 
-        ArrayList<PictureText> profileTileList = MainActivity.userTiles;
+        ArrayList<Tile> profileTileList = MainActivity.userTiles;
         if (profileTileList != null) {
-            listView.setAdapter(new PictureTextAdapter(mView.getContext(), profileTileList));
+            listView.setAdapter(new TileAdapter(mView.getContext(), profileTileList));
         }
     }
 

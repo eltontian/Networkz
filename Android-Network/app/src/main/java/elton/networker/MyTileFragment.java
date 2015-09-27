@@ -88,9 +88,9 @@ public class MyTileFragment extends Fragment implements AdapterView.OnItemClickL
             }
         });
 
-        ArrayList<PictureText> tileList = MainActivity.userTiles;
+        ArrayList<Tile> tileList = MainActivity.userTiles;
         if (tileList != null) {
-            listView.setAdapter(new PictureTextAdapter(mView.getContext(), tileList));
+            listView.setAdapter(new TileAdapter(mView.getContext(), tileList));
         }
     }
 
@@ -159,7 +159,7 @@ public class MyTileFragment extends Fragment implements AdapterView.OnItemClickL
         String user = ParseUser.getCurrentUser().getUsername();
         String content = user + ":";
 
-        for (Tile t : MainActivity.tiles) {
+        for (Tile t : MainActivity.userTiles) {
             if (t.isChecked()) {
                 user = user + t.getText() + "_";
             }
