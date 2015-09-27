@@ -33,6 +33,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.parse.ParseUser;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -61,8 +62,7 @@ public class MyTileFragment extends Fragment implements AdapterView.OnItemClickL
 
         captureButton = (Button) mView.findViewById(R.id.cameraButton);
         generateButton = (Button) mView.findViewById(R.id.generateButton);
-        popup = inflater.inflate(R.layout.image_layout
-                , null);
+        popup = inflater.inflate(R.layout.image_layout, null);
         qr_img = (ImageView) popup.findViewById(R.id.qr_img);
         settingsDialog = new Dialog(this.getActivity());
         settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
@@ -155,7 +155,19 @@ public class MyTileFragment extends Fragment implements AdapterView.OnItemClickL
 
     private void generateQRCode() {
         QRCodeWriter writer = new QRCodeWriter();
-        String content = "test";
+        String user = ParseUser.getCurrentUser().getUsername();
+
+        /*
+        for (Tile t : MainActivity.tiles) {
+            if (t.isChecked()) {
+                user = user + t.getText();
+            }
+        }
+*/
+
+        String content = user + ":";
+
+
         final Fragment self = this;
         try {
             BitMatrix bitMatrix = writer.encode(content, BarcodeFormat.QR_CODE, 512, 512);
@@ -167,6 +179,7 @@ public class MyTileFragment extends Fragment implements AdapterView.OnItemClickL
                     bmp.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
                 }
             }
+
             if(bmp == null){
                 Log.d("Checking Bitmap", "bMap is null");
             }

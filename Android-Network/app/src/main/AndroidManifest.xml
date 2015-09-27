@@ -50,6 +50,11 @@
             android:label="@string/title_activity_main"
             android:screenOrientation="portrait">
         </activity>
+        <activity
+            android:name=".TileCreateActivity"
+            android:label="@string/create_tile_title"
+            android:screenOrientation="portrait">
+        </activity>
         <meta-data
             android:name="com.parse.APPLICATION_ID"
             android:value="@string/parse_app_id" />
