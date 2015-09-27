@@ -31,16 +31,20 @@
                 android:value="elton.networker.LoginActivity" />
         </activity>
         <activity
-            android:name=".AddContactActivity"
+            android:name=".AddContactFragment"
             android:label="@string/title_activity_add_contact" >
         </activity>
         <activity
-            android:name=".MyTileActivity"
+            android:name=".MyTileFragment"
             android:label="@string/title_activity_my_tile" >
         </activity>
         <activity
-            android:name=".ViewContactActivity"
+            android:name=".ViewContactFragment"
             android:label="@string/title_activity_view_contact" >
+        </activity>
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main" >
         </activity>
     </application>
 

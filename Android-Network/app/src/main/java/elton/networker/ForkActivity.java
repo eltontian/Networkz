@@ -1,14 +1,9 @@
 package elton.networker;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 public class ForkActivity extends Activity implements View.OnClickListener{
@@ -35,13 +30,13 @@ public class ForkActivity extends Activity implements View.OnClickListener{
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.addContactButton) {
-            Intent intent = new Intent(this, AddContactActivity.class);
+            Intent intent = new Intent(this, AddContactFragment.class);
             this.startActivity(intent);
         } else if (view.getId() == R.id.viewContactButon) {
-            Intent intent = new Intent(this, ViewContactActivity.class);
+            Intent intent = new Intent(this, ViewContactFragment.class);
             this.startActivity(intent);
         } else if (view.getId() == R.id.addTileButton){
-            Intent intent = new Intent(this, MyTileActivity.class);
+            Intent intent = new Intent(this, MyTileFragment.class);
             this.startActivity(intent);
         }
     }

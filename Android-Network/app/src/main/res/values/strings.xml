@@ -7,4 +7,5 @@
     <string name="title_activity_add_contact">AddContactActivity</string>
     <string name="title_activity_my_tile">MyTileActivity</string>
     <string name="title_activity_view_contact">ViewContactActivity</string>
+    <string name="title_activity_main">MainActivity</string>
 </resources>
