@@ -10,6 +10,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.parse.ParseUser;
 
@@ -18,7 +19,11 @@ import java.util.Arrays;
 
 public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
 
+    private User user;
+
     private ListView optionsList;
+    private TextView profileName;
+
     private DrawerLayout navigationDrawer;
     private PictureText[] optionsArray;
     public static ArrayList<CheckboxText> nearbyConnectionsArray;
@@ -35,6 +40,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         optionsList = (ListView) findViewById(R.id.navigationDrawerMenuList);
         optionsList.setOnItemClickListener(this);
+
+        profileName = (TextView) findViewById(R.id.profileNameText);
 
         optionsArray = new PictureText[4];
         optionsArray[1] = new PictureText(R.drawable.ic_launcher, "Add Connection");
@@ -57,13 +64,28 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         userTiles.add(new PictureText(R.drawable.ic_launcher, "Tile 2"));
         userTiles.add(new PictureText(R.drawable.ic_launcher, "Tile 3"));
 
+        getParseData();
         setUpNavigationDrawer();
+    }
+
+    private void getParseData() {
+        ParseUser currentUser = ParseUser.getCurrentUser();
+        if (currentUser == null) {
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        }
+
+        user = new User(0, currentUser.getString("name"));
     }
 
     private void setUpNavigationDrawer() {
         optionsList.setAdapter(new PictureTextAdapter(this,
                 new ArrayList<PictureText>(Arrays.asList(optionsArray))));
+
+        profileName.setText(user.getName());
     }
+
+    //P
     //ParseUser.logOut();
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -76,7 +98,6 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         } else {
             ParseUser.logOut();
             Intent intent = new Intent(this, LoginActivity.class);
-            intent.putExtra("user", "userrr:passwordddd");
             startActivity(intent);
         }
     }
