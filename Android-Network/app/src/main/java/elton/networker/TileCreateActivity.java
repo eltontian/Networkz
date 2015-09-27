@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseException;
 import com.parse.ParseFile;
@@ -67,25 +68,27 @@ public class TileCreateActivity extends Activity {
 
                 ParseUser user = ParseUser.getCurrentUser();
                 ArrayList<ParseObject> tiles = new ArrayList<ParseObject>();
-
-                ParseObject tile = new ParseObject("tile");
-                spinner = (Spinner) findViewById(R.id.tileCreateType);
-                value = (EditText) findViewById(R.id.tileCreateValue);
-
-                String text = spinner.getSelectedItem().toString();
-
                 if(user.getList("tiles") != null) {
                     tiles = (ArrayList) user.getList("tiles");
                 }
-                Log.d("text getting ya", value.getText().toString());
+
+                spinner = (Spinner) findViewById(R.id.tileCreateType);
+                value = (EditText) findViewById(R.id.tileCreateValue);
+                String text = spinner.getSelectedItem().toString();
+
+                ParseObject tile = new ParseObject("tile");
                 tile.put("type", text);
                 tile.put("value", value.getText().toString());
 
 
+
+
+
                 tiles.add(tile);
 
-                ParseUser.getCurrentUser().put("tiles", tiles);
-
+                user.put("tiles", tiles);
+                user.saveInBackground();
+                
                 Intent intent = new Intent(self, MainActivity.class);
                 startActivity(intent);
             }
