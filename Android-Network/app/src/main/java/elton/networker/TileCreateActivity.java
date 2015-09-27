@@ -7,12 +7,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.ui.ParseLoginBuilder;
 
 import org.json.JSONArray;
@@ -28,6 +31,7 @@ public class TileCreateActivity extends Activity {
 
     private Button createButton;
     private Spinner spinner;
+    private EditText value;
 
     private final Activity self = this;
 
@@ -38,10 +42,13 @@ public class TileCreateActivity extends Activity {
         setContentView(R.layout.activity_tile_create);
         createButton = (Button) findViewById(R.id.done_button);
         spinner = (Spinner) findViewById(R.id.tileCreateType);
+        value = (EditText) findViewById(R.id.tileCreateValue);
 
-        String[] list = new String[2];
+        String[] list = new String[4];
         list[0] = "LinkedIn";
         list[1] = "Resume";
+        list[2] = "Github";
+        list[3] = "Email";
 
         ArrayAdapter<String> stringAdapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
@@ -55,23 +62,25 @@ public class TileCreateActivity extends Activity {
 
                 ArrayList<ParseObject> tilesArray = new ArrayList<ParseObject>();
 
-                byte[] data = "Working at Parse is great!".getBytes();
-                ParseFile file = new ParseFile("resume.txt", data);
-                file.saveInBackground();
+
+
                 ParseUser user = ParseUser.getCurrentUser();
-                JSONArray tiles = user.getJSONArray("tiles");
+                ArrayList<ParseObject> tiles = new ArrayList<ParseObject>();
+                ParseObject tile = new ParseObject("tile");
+                spinner = (Spinner) findViewById(R.id.tileCreateType);
+                value = (EditText) findViewById(R.id.tileCreateValue);
 
+                String text = spinner.getSelectedItem().toString();
 
-                ParseObject tile = new ParseObject("Tile");
-                tile.add("resume", file);
-
-                if(tiles != null){
-                    tilesArray = (ArrayList) user.getList("tiles");
+                if(tiles != null) {
+                    tiles = (ArrayList) user.getList("tiles");
                 }
+                tile.add("type",text);
+                tile.add("value",value);
+                tiles.add(tile);
 
-                tilesArray.add(tile);
-                user.put("tiles",tilesArray);
-                user.saveInBackground();
+                ParseUser.getCurrentUser().put("tiles", tiles);
+
                 Intent intent = new Intent(self, MainActivity.class);
                 startActivity(intent);
             }
