@@ -10,9 +10,11 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+import com.parse.SaveCallback;
 import com.parse.ui.ParseLoginBuilder;
 
 import org.json.JSONArray;
@@ -53,25 +55,33 @@ public class TileCreateActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                ArrayList<ParseObject> tilesArray = new ArrayList<ParseObject>();
-
                 byte[] data = "Working at Parse is great!".getBytes();
-                ParseFile file = new ParseFile("resume.txt", data);
-                file.saveInBackground();
-                ParseUser user = ParseUser.getCurrentUser();
-                JSONArray tiles = user.getJSONArray("tiles");
+                final ParseFile file = new ParseFile("resume.txt", data);
+
+                file.saveInBackground(new SaveCallback() {
+                    public void done(ParseException e) {
+                        // If successful add file to user and signUpInBackground
+                        if(e==null){
+                            ArrayList<ParseObject> tilesArray = new ArrayList<ParseObject>();
+                            ParseUser user = ParseUser.getCurrentUser();
+                            JSONArray tiles = user.getJSONArray("tiles");
 
 
-                ParseObject tile = new ParseObject("Tile");
-                tile.add("resume", file);
+                            ParseObject tile = new ParseObject("Tile");
+                            tile.add("resume", file);
 
-                if(tiles != null){
-                    tilesArray = (ArrayList) user.getList("tiles");
-                }
+                            if(tiles != null){
+                                tilesArray = (ArrayList) user.getList("tiles");
+                            }
 
-                tilesArray.add(tile);
-                user.put("tiles",tilesArray);
-                user.saveInBackground();
+                            tilesArray.add(tile);
+                            user.put("tiles",tilesArray);
+                            user.saveInBackground();
+
+                        }
+                    }
+                });
+
                 Intent intent = new Intent(self, MainActivity.class);
                 startActivity(intent);
             }
