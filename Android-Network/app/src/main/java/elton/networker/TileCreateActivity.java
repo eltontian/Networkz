@@ -10,9 +10,15 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
+
+import org.json.JSONArray;
+
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Shows the user profile. This simple activity can function regardless of whether the user
@@ -47,6 +53,27 @@ public class TileCreateActivity extends Activity {
             @Override
             public void onClick(View v) {
 
+                ArrayList<ParseObject> tilesArray = new ArrayList<ParseObject>();
+
+                byte[] data = "Working at Parse is great!".getBytes();
+                ParseFile file = new ParseFile("resume.txt", data);
+                file.saveInBackground();
+                ParseUser user = ParseUser.getCurrentUser();
+                JSONArray tiles = user.getJSONArray("tiles");
+
+
+                ParseObject tile = new ParseObject("Tile");
+                tile.add("resume", file);
+
+                if(tiles != null){
+                    tilesArray = (ArrayList) user.getList("tiles");
+                }
+
+                tilesArray.add(tile);
+                user.put("tiles",tilesArray);
+                user.saveInBackground();
+                Intent intent = new Intent(self, MainActivity.class);
+                startActivity(intent);
             }
         });
     }
