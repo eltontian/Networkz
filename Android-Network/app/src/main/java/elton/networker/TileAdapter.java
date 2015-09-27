@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.ImageButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,13 +14,13 @@ import java.util.List;
 /**
  * Created by andreguzman on 9/26/15.
  */
-public class CheckboxTileAdapter extends ArrayAdapter<CheckboxTile> implements View.OnClickListener {
+public class TileAdapter extends ArrayAdapter<Tile> implements View.OnClickListener {
 
-    private ArrayList<CheckboxTile> checkboxTileList;
+    private ArrayList<Tile> tileList;
 
-    public CheckboxTileAdapter(Context context, List<CheckboxTile> objects) {
+    public TileAdapter(Context context, List<Tile> objects) {
         super(context, 0, objects);
-        checkboxTileList = new ArrayList<>(objects);
+        tileList = new ArrayList<>(objects);
     }
 
     @Override
@@ -29,16 +30,19 @@ public class CheckboxTileAdapter extends ArrayAdapter<CheckboxTile> implements V
         if (view == null) {
             LayoutInflater inflater =
                     (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view = inflater.inflate(R.layout.add_connection_list_item_layout, null);
+            view = inflater.inflate(R.layout.tile_layout, null);
         }
 
-        CheckboxTile checkboxTile = checkboxTileList.get(position);
+        Tile tile = tileList.get(position);
 
-        if (checkboxTile != null) {
-            CheckBox checkBoxText = (CheckBox) view.findViewById(R.id.addContactCheckbox);
+        if (tile != null) {
+            CheckBox checkBoxText = (CheckBox) view.findViewById(R.id.tileCheckbox);
+            ImageButton editTileButton = (ImageButton) view.findViewById(R.id.editTileButton);
 
-            checkBoxText.setText(checkboxTile.getText());
+            checkBoxText.setText(tile.getText());
             checkBoxText.setOnClickListener(this);
+
+            editTileButton.setOnClickListener(this);
         }
 
         return view;
@@ -50,7 +54,7 @@ public class CheckboxTileAdapter extends ArrayAdapter<CheckboxTile> implements V
         if (view instanceof CheckBox) {
             checkBox = (CheckBox) view;
 
-            for (CheckboxTile c : checkboxTileList) {
+            for (Tile c : tileList) {
                 if (c.getText().equals(checkBox.getText())) {
                     c.setChecked(checkBox.isChecked());
                 }
