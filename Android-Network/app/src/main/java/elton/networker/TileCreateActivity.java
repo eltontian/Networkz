@@ -3,6 +3,7 @@ package elton.networker;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
@@ -66,17 +67,21 @@ public class TileCreateActivity extends Activity {
 
                 ParseUser user = ParseUser.getCurrentUser();
                 ArrayList<ParseObject> tiles = new ArrayList<ParseObject>();
+
                 ParseObject tile = new ParseObject("tile");
                 spinner = (Spinner) findViewById(R.id.tileCreateType);
                 value = (EditText) findViewById(R.id.tileCreateValue);
 
                 String text = spinner.getSelectedItem().toString();
 
-                if(tiles != null) {
+                if(user.getList("tiles") != null) {
                     tiles = (ArrayList) user.getList("tiles");
                 }
-                tile.add("type",text);
-                tile.add("value",value);
+                Log.d("text getting ya", value.getText().toString());
+                tile.put("type", text);
+                tile.put("value", value.getText().toString());
+
+
                 tiles.add(tile);
 
                 ParseUser.getCurrentUser().put("tiles", tiles);
