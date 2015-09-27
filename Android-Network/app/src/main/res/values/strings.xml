@@ -11,11 +11,12 @@
     <string name="parse_app_id">DhKRZwCbqQ6hVCdJsCL0ta7pHnVlCNI3rPC3RWR4</string>
     <string name="parse_client_key">mpul5shVY0bRtrTLzxO84mxn52dL1PPBnRyJpOCw</string>
     <string name="profile_logo_content_description">Logo</string>
-    <string name="profile_title_logged_in">You are logged in as</string>
+    <string name="profile_title_logged_in">You are logged in</string>
     <string name="profile_logout_button_label">Log out</string>
     <string name="profile_title_logged_out">You must be logged in to view your profile</string>
     <string name="profile_login_button_label">Log in</string>
     <string name="logo_desc">Logo</string>
+    <string name="create_tile_title">Create A Tile</string>
 
     <string name="title_activity_main">MainActivity</string>
 
