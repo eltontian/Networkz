@@ -1,25 +1,37 @@
 package elton.networker;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 import android.widget.Spinner;
 import android.widget.Toast;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+import com.google.zxing.qrcode.QRCodeWriter;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -32,6 +44,11 @@ public class MyTileFragment extends Fragment implements AdapterView.OnItemClickL
     private Spinner spinner;
     private Button captureButton;
     private Button generateButton;
+    private View popup;
+    private ImageView qr_img;
+    Dialog settingsDialog;
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,7 +59,13 @@ public class MyTileFragment extends Fragment implements AdapterView.OnItemClickL
         spinner = (Spinner) mView.findViewById(R.id.newTileSpinner);
         captureButton = (Button) mView.findViewById(R.id.cameraButton);
         generateButton = (Button) mView.findViewById(R.id.generateButton);
+        popup = inflater.inflate(R.layout.image_layout
+                , null);
+        qr_img = (ImageView) popup.findViewById(R.id.qr_img);
+        settingsDialog = new Dialog(this.getActivity());
+        settingsDialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 
+        settingsDialog.setContentView(popup);
         return mView;
     }
 
@@ -131,6 +154,27 @@ public class MyTileFragment extends Fragment implements AdapterView.OnItemClickL
 
 
     private void generateQRCode() {
+        QRCodeWriter writer = new QRCodeWriter();
+        String content = "test";
+        final Fragment self = this;
+        try {
+            BitMatrix bitMatrix = writer.encode(content, BarcodeFormat.QR_CODE, 512, 512);
+            int width = bitMatrix.getWidth();
+            int height = bitMatrix.getHeight();
+            Bitmap bmp = Bitmap.createBitmap(width, height, Bitmap.Config.RGB_565);
+            for (int x = 0; x < width; x++) {
+                for (int y = 0; y < height; y++) {
+                    bmp.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+                }
+            }
+            if(bmp == null){
+                Log.d("Checking Bitmap", "bMap is null");
+            }
+            qr_img.setImageBitmap(bmp);
+            settingsDialog.show();
 
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
     }
 }

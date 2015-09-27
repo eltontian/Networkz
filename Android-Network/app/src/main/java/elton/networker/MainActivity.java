@@ -43,7 +43,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         profileName = (TextView) findViewById(R.id.profileNameText);
 
-        optionsArray = new PictureText[4];
+        optionsArray = new PictureText[3];
         optionsArray[1] = new PictureText(R.drawable.ic_launcher, "My Tiles");
         optionsArray[0] = new PictureText(R.drawable.ic_launcher, "Connections");
         optionsArray[2] = new PictureText(R.drawable.ic_launcher, "Logout");
