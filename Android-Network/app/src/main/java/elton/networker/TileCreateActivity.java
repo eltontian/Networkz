@@ -19,14 +19,10 @@ import com.parse.ui.ParseLoginBuilder;
  * is currently logged in.
  */
 public class TileCreateActivity extends Activity {
-    private static final int LOGIN_REQUEST = 0;
 
-    private TextView titleTextView;
     private Button createButton;
     private Spinner spinner;
 
-
-    private ParseUser currentUser;
     private final Activity self = this;
 
     @Override
@@ -34,26 +30,25 @@ public class TileCreateActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_tile_create);
-        createButton = (Button) findViewById(R.id.done_button);
-        titleTextView.setText(R.string.profile_title_logged_in);
-        spinner = (Spinner) findViewById(R.id.tileCreateType);
+//        createButton = (Button) findViewById(R.id.done_button);
+//        spinner = (Spinner) findViewById(R.id.tileCreateType);
 
-        String[] list = new String[2];
-        list[0] = "Facebook";
-        list[1] = "LinkedIn";
+//        String[] list = new String[2];
+//        list[0] = "LinkedIn";
+//        list[1] = "Resume";
+//
+//        ArrayAdapter<String> stringAdapter =
+//                new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+//
+//        spinner.setAdapter(stringAdapter);
 
-        ArrayAdapter<String> stringAdapter =
-                new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
 
-        spinner.setAdapter(stringAdapter);
-
-
-        createButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+//        createButton.setOnClickListener(new OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//            }
+//        });
     }
 
 

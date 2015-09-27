@@ -22,6 +22,7 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.PopupMenu;
@@ -41,12 +42,12 @@ import elton.networker.R;
 public class MyTileFragment extends Fragment implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private View mView;
-    private Spinner spinner;
     private Button captureButton;
     private Button generateButton;
     private View popup;
     private ImageView qr_img;
-    Dialog settingsDialog;
+    private Dialog settingsDialog;
+    private ImageButton imageButton;
 
 
 
@@ -56,7 +57,8 @@ public class MyTileFragment extends Fragment implements AdapterView.OnItemClickL
         // Inflate the layout for this fragment
         mView = inflater.inflate(R.layout.add_tile_layout, container, false);
 
-        spinner = (Spinner) mView.findViewById(R.id.newTileSpinner);
+        imageButton = (ImageButton) mView.findViewById(R.id.newTileButton);
+
         captureButton = (Button) mView.findViewById(R.id.cameraButton);
         generateButton = (Button) mView.findViewById(R.id.generateButton);
         popup = inflater.inflate(R.layout.image_layout
@@ -78,20 +80,18 @@ public class MyTileFragment extends Fragment implements AdapterView.OnItemClickL
 
         captureButton.setOnClickListener(this);
         generateButton.setOnClickListener(this);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mView.getContext(), TileCreateActivity.class);
+                startActivity(intent);
+            }
+        });
 
         ArrayList<PictureText> tileList = MainActivity.userTiles;
         if (tileList != null) {
             listView.setAdapter(new PictureTextAdapter(mView.getContext(), tileList));
         }
-
-        String[] list = new String[2];
-        list[0] = "Facebook";
-        list[1] = "LinkedIn";
-
-        ArrayAdapter<String> stringAdapter =
-                new ArrayAdapter<String>(mView.getContext(), android.R.layout.simple_list_item_1, list);
-
-        spinner.setAdapter(stringAdapter);
     }
 
     @Override

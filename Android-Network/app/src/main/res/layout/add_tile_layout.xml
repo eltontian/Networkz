@@ -3,7 +3,7 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:id="@+id/addTileContainer">
 
-    <LinearLayout
+    <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,13 +16,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/newTileButton"
-            android:background="@drawable/ic_launcher" />
+            android:background="@drawable/add_btn"
+            android:layout_alignParentRight="true" />
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:id="@+id/newTileSpinner" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <ListView
         android:layout_width="wrap_content"
