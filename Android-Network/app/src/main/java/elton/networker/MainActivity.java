@@ -4,11 +4,15 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,15 +21,17 @@ import com.parse.ParseUser;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener {
+public class MainActivity extends ActionBarActivity implements AdapterView.OnItemClickListener, View.OnClickListener {
 
     private User user;
 
     private ListView optionsList;
     private TextView profileName;
+    private ImageButton drawerOpenButton;
 
     private DrawerLayout navigationDrawer;
     private PictureText[] optionsArray;
+
     public static ArrayList<Tile> tiles;
     public static ArrayList<PictureText> contactsList;
     public static ArrayList<PictureText> userTiles;
@@ -40,8 +46,10 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         optionsList = (ListView) findViewById(R.id.navigationDrawerMenuList);
         optionsList.setOnItemClickListener(this);
-
         profileName = (TextView) findViewById(R.id.profileNameText);
+
+    //    drawerOpenButton = (ImageButton) findViewById(R.id.openDrawerButton);
+    //    drawerOpenButton.setOnClickListener(this);
 
         optionsArray = new PictureText[3];
         optionsArray[1] = new PictureText(R.drawable.ic_launcher, "My Tiles");
@@ -65,6 +73,20 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
         getParseData();
         setUpNavigationDrawer();
+        setupClosedActionBar();
+    }
+
+    private void setupClosedActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
+
+        View customNav = LayoutInflater.from(this).inflate(R.layout.action_bar_layout, null); // layout which contains your button.
+
+        actionBar.setCustomView(customNav);
     }
 
     private void getParseData() {
@@ -121,6 +143,33 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         fragmentTransaction.commit();
         activityState = MainActivityState.VIEW_CONTACT;
         navigationDrawer.closeDrawer(Gravity.LEFT);
+    }
+
+    @Override
+    public void onClick(View view) {
+        if (navigationDrawer.isDrawerOpen(Gravity.LEFT)) {
+            navigationDrawer.closeDrawer(Gravity.LEFT);
+            setupClosedActionBar();
+        } else {
+            navigationDrawer.openDrawer(Gravity.LEFT);
+            setupOpenActionBar();
+        }
+    }
+
+    private void setupOpenActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayUseLogoEnabled(false);
+        actionBar.setDisplayHomeAsUpEnabled(false);
+        actionBar.setDisplayShowCustomEnabled(true);
+        actionBar.setDisplayShowHomeEnabled(false);
+
+        ((ImageButton) findViewById(R.id.openDrawerButton))
+                .setBackground(getResources().getDrawable(R.drawable.common_signin_btn_icon_dark));
+
+        View customNav = LayoutInflater.from(this).inflate(R.layout.action_bar_layout, null); // layout which contains your button.
+
+        actionBar.setCustomView(customNav);
     }
 
     public enum MainActivityState { ADD_CONTACT, VIEW_CONTACT, ADD_TILE }
