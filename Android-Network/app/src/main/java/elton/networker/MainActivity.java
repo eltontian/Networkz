@@ -46,10 +46,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         profileName = (TextView) findViewById(R.id.profileNameText);
 
         optionsArray = new PictureText[4];
-        optionsArray[1] = new PictureText(R.drawable.ic_launcher, "Add Connection");
-        optionsArray[2] = new PictureText(R.drawable.ic_launcher, "Add Tile");
-        optionsArray[0] = new PictureText(R.drawable.ic_launcher, "View Connections");
-        optionsArray[3] = new PictureText(R.drawable.ic_launcher, "Logout");
+        optionsArray[1] = new PictureText(R.drawable.ic_launcher, "My Tiles");
+        optionsArray[0] = new PictureText(R.drawable.ic_launcher, "Connections");
+        optionsArray[2] = new PictureText(R.drawable.ic_launcher, "Logout");
 
         nearbyConnectionsArray = new ArrayList<>();
         nearbyConnectionsArray.add(new CheckboxText("Person 1"));
@@ -91,11 +90,11 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     //ParseUser.logOut();
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        if (i == 1) {
-            getAddConnections();
+        if (i == 10) {
+            //getAddConnections();
         } else if (i == 0) {
             setUpViewConnections();
-        } else if (i == 2) {
+        } else if (i == 1) {
             setUpAddTile();
         } else {
             ParseUser.logOut();
@@ -104,53 +103,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         }
     }
 
-    private void getAddConnections() {
-        try {
-            Intent intent = new Intent("com.google.zxing.client.android.SCAN");
-            intent.putExtra("SCAN_MODE", "QR_CODE_MODE"); // "PRODUCT_MODE for bar codes
-
-            startActivityForResult(intent, 0);
-        } catch (Exception e) {
-            Uri marketUri = Uri.parse("market://details?id=com.google.zxing.client.android");
-            Intent marketIntent = new Intent(Intent.ACTION_VIEW, marketUri);
-            startActivity(marketIntent);
-        }
-    }
-
-    private void setUpAddConnections(String username) {
-        if (username != null) {
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            AddContactFragment addContactFragment = new AddContactFragment();
-
-            fragmentTransaction.replace(R.id.mainContentContainer, addContactFragment);
-            fragmentTransaction.commit();
-            activityState = MainActivityState.ADD_CONTACT;
-            navigationDrawer.closeDrawer(Gravity.LEFT);
-        } else {
-            // TODO Handle an error
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        String contents = null;
-
-        if (requestCode == 0) {
-            if (resultCode == RESULT_OK) {
-                contents = data.getStringExtra("SCAN_RESULT");
-                Toast.makeText(this, contents, Toast.LENGTH_LONG).show();
-            }
-            if(resultCode == RESULT_CANCELED){
-                Toast.makeText(this, "QR Code Error", Toast.LENGTH_LONG).show();
-            }
-        }
-
-        setUpAddConnections(contents);
-    }
-
-    private void setUpViewConnections() {
+    private void setUpAddTile() {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         MyTileFragment myTileFragment = new MyTileFragment();
@@ -161,7 +114,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         navigationDrawer.closeDrawer(Gravity.LEFT);
     }
 
-    private void setUpAddTile() {
+    private void setUpViewConnections() {
         FragmentManager fragmentManager = getFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         ViewContactFragment viewContactFragment = new ViewContactFragment();
