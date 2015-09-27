@@ -3,7 +3,6 @@ package elton.networker;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
-import android.net.Uri;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -12,7 +11,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.parse.ParseUser;
 
@@ -28,7 +26,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
     private DrawerLayout navigationDrawer;
     private PictureText[] optionsArray;
-    public static ArrayList<CheckboxTile> tiles;
+    public static ArrayList<Tile> tiles;
     public static ArrayList<PictureText> contactsList;
     public static ArrayList<PictureText> userTiles;
     private MainActivityState activityState;
@@ -51,9 +49,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         optionsArray[2] = new PictureText(R.drawable.ic_launcher, "Logout");
 
         tiles = new ArrayList<>();
-        tiles.add(new CheckboxTile("Person 1"));
-        tiles.add(new CheckboxTile("Person 2"));
-        tiles.add(new CheckboxTile("Person 3"));
+        tiles.add(new Tile("Person 1"));
+        tiles.add(new Tile("Person 2"));
+        tiles.add(new Tile("Person 3"));
 
         contactsList = new ArrayList<>();
         contactsList.add(new PictureText(R.drawable.ic_launcher, "Person 1"));

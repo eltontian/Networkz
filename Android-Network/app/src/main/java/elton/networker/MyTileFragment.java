@@ -73,7 +73,7 @@ public class MyTileFragment extends Fragment implements AdapterView.OnItemClickL
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
+        // TODO start activity to edit data
     }
 
     @Override
