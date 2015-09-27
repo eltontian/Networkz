@@ -3,16 +3,16 @@ package elton.networker;
 /**
  * Created by andreguzman on 9/26/15.
  */
-public class CheckboxText {
+public class CheckboxTile {
 
-    private String mText;
+    private String tileText;
     private boolean checked;
 
-    public CheckboxText(String text) {
-        this.mText = text;
+    public CheckboxTile(String text) {
+        this.tileText = text;
     }
 
-    public boolean getChecked() {
+    public boolean isChecked() {
         return checked;
     }
 
@@ -20,8 +20,12 @@ public class CheckboxText {
         this.checked = checked;
     }
 
+    public void toggle() {
+        this.checked = !this.checked;
+    }
+
     public String getText() {
-        return mText;
+        return tileText;
     }
 
 }
