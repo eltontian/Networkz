@@ -20,7 +20,7 @@ public class TileAdapter extends ArrayAdapter<Tile> implements View.OnClickListe
 
     public TileAdapter(Context context, List<Tile> objects) {
         super(context, 0, objects);
-        tileList = new ArrayList<>(objects);
+        tileList = (ArrayList) objects;
     }
 
     @Override
@@ -56,7 +56,7 @@ public class TileAdapter extends ArrayAdapter<Tile> implements View.OnClickListe
 
             for (Tile c : tileList) {
                 if (c.getText().equals(checkBox.getText())) {
-                    c.setChecked(checkBox.isChecked());
+                    c.toggle();
                 }
             }
         }

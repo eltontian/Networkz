@@ -65,13 +65,11 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         tiles.add(new Tile("Person 3"));
 
         contactsList = new ArrayList<>();
-        contactsList.add(new PictureText(R.drawable.ic_launcher, "Aash Bhardwaj"));
-        contactsList.add(new PictureText(R.drawable.ic_launcher, "Brandon Grink"));
-        contactsList.add(new PictureText(R.drawable.ic_launcher, "Rahul Menon"));
+        contactsList.add(new PictureText(R.drawable.user_icon, "Aash Bhardwaj"));
+        contactsList.add(new PictureText(R.drawable.user_icon, "Brandon Grink"));
+        contactsList.add(new PictureText(R.drawable.user_icon, "Rahul Menon"));
         ParseUser user = ParseUser.getCurrentUser();
-        if(user == null){
-            Log.d("heyyyy","User not defined");
-        }
+
         ArrayList<String> result = (ArrayList) user.getList("tiles");
         userTiles = new ArrayList<>();
         if (result != null) {

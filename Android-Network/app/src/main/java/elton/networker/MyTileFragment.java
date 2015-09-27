@@ -157,14 +157,14 @@ public class MyTileFragment extends Fragment implements AdapterView.OnItemClickL
         QRCodeWriter writer = new QRCodeWriter();
 
         String user = ParseUser.getCurrentUser().getUsername();
-        String content = user + ":";
+        String content = "{user:" + user;
 
         for (Tile t : MainActivity.userTiles) {
             if (t.isChecked()) {
-                user = user + t.getText() + "_";
+                content+="," + t.getText();
             }
         }
-
+        content += '}';
         final Fragment self = this;
         try {
             BitMatrix bitMatrix = writer.encode(content, BarcodeFormat.QR_CODE, 512, 512);
