@@ -62,12 +62,12 @@ public class TileCreateActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                ArrayList<ParseObject> tilesArray = new ArrayList<ParseObject>();
+
 
 
 
                 ParseUser user = ParseUser.getCurrentUser();
-                ArrayList<ParseObject> tiles = new ArrayList<ParseObject>();
+                ArrayList<String> tiles = new ArrayList<String>();
                 if(user.getList("tiles") != null) {
                     tiles = (ArrayList) user.getList("tiles");
                 }
@@ -76,19 +76,19 @@ public class TileCreateActivity extends Activity {
                 value = (EditText) findViewById(R.id.tileCreateValue);
                 String text = spinner.getSelectedItem().toString();
 
-                ParseObject tile = new ParseObject("tile");
-                tile.put("type", text);
-                tile.put("value", value.getText().toString());
+//                ParseObject tile = new ParseObject("tile");
+//                tile.put("type", text);
+//                tile.put("value", value.getText().toString());
 
 
 
 
 
-                tiles.add(tile);
+                tiles.add(text+ ":" + value.getText().toString());
 
                 user.put("tiles", tiles);
                 user.saveInBackground();
-                
+
                 Intent intent = new Intent(self, MainActivity.class);
                 startActivity(intent);
             }
