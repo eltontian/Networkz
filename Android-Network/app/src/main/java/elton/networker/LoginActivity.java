@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.parse.ParseObject;
 import com.parse.ParseUser;
 import com.parse.ui.ParseLoginBuilder;
 
@@ -73,7 +74,6 @@ public class LoginActivity extends Activity {
      */
     private void showProfileLoggedIn() {
         Intent intent = new Intent(self, MainActivity.class);
-        intent.putExtra("user", "userrr:passwordddd");
         startActivity(intent);
     }
 
@@ -81,7 +81,7 @@ public class LoginActivity extends Activity {
      * Show a message asking the user to log in, toggle login/logout button text.
      */
     private void showProfileLoggedOut() {
-        titleTextView.setText(R.string.profile_title_logged_out);
+        titleTextView.setText("");
         emailTextView.setText("");
         nameTextView.setText("");
         loginOrLogoutButton.setText(R.string.profile_login_button_label);
