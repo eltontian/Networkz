@@ -26,8 +26,8 @@ public class AddContactFragment extends Fragment implements AdapterView.OnItemCl
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        mView = inflater.inflate(R.layout.add_contact_layout, container, false);
-        connectButton = (Button) mView.findViewById(R.id.connectButton);
+        mView = inflater.inflate(R.layout.profile_layout, container, false);
+        connectButton = (Button) mView.findViewById(R.id.addConnectionButton);
         connectButton.setOnClickListener(this);
         return mView;
     }
@@ -36,18 +36,18 @@ public class AddContactFragment extends Fragment implements AdapterView.OnItemCl
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        ListView listView = (ListView) mView.findViewById(R.id.nearbyConnectionsList);
+        ListView listView = (ListView) mView.findViewById(R.id.profileTileList);
         listView.setOnItemClickListener(this);
 
-        ArrayList<CheckboxText> checkboxList = MainActivity.nearbyConnectionsArray;
-        if (checkboxList != null) {
-            listView.setAdapter(new CheckboxTextAdapter(mView.getContext(), checkboxList));
+        ArrayList<PictureText> profileTileList = MainActivity.userTiles;
+        if (profileTileList != null) {
+            listView.setAdapter(new PictureTextAdapter(mView.getContext(), profileTileList));
         }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // TODO What happens when I click on a person?
+        // TODO What happens when I click on a tile?
     }
 
     @Override
