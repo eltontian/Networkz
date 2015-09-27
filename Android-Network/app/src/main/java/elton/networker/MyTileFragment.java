@@ -155,18 +155,15 @@ public class MyTileFragment extends Fragment implements AdapterView.OnItemClickL
 
     private void generateQRCode() {
         QRCodeWriter writer = new QRCodeWriter();
+
         String user = ParseUser.getCurrentUser().getUsername();
-
-        /*
-        for (Tile t : MainActivity.tiles) {
-            if (t.isChecked()) {
-                user = user + t.getText();
-            }
-        }
-*/
-
         String content = user + ":";
 
+        for (Tile t : MainActivity.tiles) {
+            if (t.isChecked()) {
+                user = user + t.getText() + "_";
+            }
+        }
 
         final Fragment self = this;
         try {

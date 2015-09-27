@@ -62,9 +62,9 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         tiles.add(new Tile("Person 3"));
 
         contactsList = new ArrayList<>();
-        contactsList.add(new PictureText(R.drawable.ic_launcher, "Person 1"));
-        contactsList.add(new PictureText(R.drawable.ic_launcher, "Person 2"));
-        contactsList.add(new PictureText(R.drawable.ic_launcher, "Person 3"));
+        contactsList.add(new PictureText(R.drawable.ic_launcher, "Aash Bhardwaj"));
+        contactsList.add(new PictureText(R.drawable.ic_launcher, "Brandon Grink"));
+        contactsList.add(new PictureText(R.drawable.ic_launcher, "Rahul Menon"));
 
         userTiles = new ArrayList<>();
         userTiles.add(new PictureText(R.drawable.ic_launcher, "Tile 1"));
