@@ -28,7 +28,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
 
     private DrawerLayout navigationDrawer;
     private PictureText[] optionsArray;
-    public static ArrayList<CheckboxText> nearbyConnectionsArray;
+    public static ArrayList<CheckboxTile> tiles;
     public static ArrayList<PictureText> contactsList;
     public static ArrayList<PictureText> userTiles;
     private MainActivityState activityState;
@@ -50,10 +50,10 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         optionsArray[0] = new PictureText(R.drawable.ic_launcher, "Connections");
         optionsArray[2] = new PictureText(R.drawable.ic_launcher, "Logout");
 
-        nearbyConnectionsArray = new ArrayList<>();
-        nearbyConnectionsArray.add(new CheckboxText("Person 1"));
-        nearbyConnectionsArray.add(new CheckboxText("Person 2"));
-        nearbyConnectionsArray.add(new CheckboxText("Person 3"));
+        tiles = new ArrayList<>();
+        tiles.add(new CheckboxTile("Person 1"));
+        tiles.add(new CheckboxTile("Person 2"));
+        tiles.add(new CheckboxTile("Person 3"));
 
         contactsList = new ArrayList<>();
         contactsList.add(new PictureText(R.drawable.ic_launcher, "Person 1"));
