@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:id="@+id/navigationDrawerContainer"
+    android:background="@android:color/holo_blue_dark"
+    android:clickable="true" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/navigationDrawerTopContainer"
+        android:visibility="invisible">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/openMessagesButton"
+            android:background="@drawable/common_signin_btn_icon_focus_dark" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/openNotificationsButton"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/common_signin_btn_icon_focus_dark" />
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/profilePictureImage"
+        android:layout_below="@+id/navigationDrawerTopContainer"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/ic_launcher" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Profile Name"
+        android:id="@+id/profileNameText"
+        android:layout_below="@+id/profilePictureImage"
+        android:layout_centerHorizontal="true"
+        android:elegantTextHeight="false"
+        android:autoText="false" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/navigationDrawerSettingsText"
+        android:layout_below="@+id/profileNameText"
+        android:layout_centerHorizontal="true" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/navigationDrawerMenuList"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/navigationDrawerSettingsText" />
+</RelativeLayout>

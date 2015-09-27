@@ -23,6 +23,7 @@ public class LoginActivity extends Activity {
     private TextView nameTextView;
     private Button loginOrLogoutButton;
 
+
     private ParseUser currentUser;
     private final Activity self = this;
 
@@ -71,7 +72,7 @@ public class LoginActivity extends Activity {
      * Shows the profile of the given user.
      */
     private void showProfileLoggedIn() {
-        Intent intent = new Intent(self, ForkActivity.class);
+        Intent intent = new Intent(self, MainActivity.class);
         intent.putExtra("user", "userrr:passwordddd");
         startActivity(intent);
     }
