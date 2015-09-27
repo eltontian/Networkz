@@ -7,6 +7,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -67,13 +68,16 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         contactsList.add(new PictureText(R.drawable.ic_launcher, "Aash Bhardwaj"));
         contactsList.add(new PictureText(R.drawable.ic_launcher, "Brandon Grink"));
         contactsList.add(new PictureText(R.drawable.ic_launcher, "Rahul Menon"));
-
-        ArrayList<ParseObject> result = (ArrayList) ParseUser.getCurrentUser().getList("tiles");
+        ParseUser user = ParseUser.getCurrentUser();
+        if(user == null){
+            Log.d("heyyyy","User not defined");
+        }
+        ArrayList<String> result = (ArrayList) user.getList("tiles");
         userTiles = new ArrayList<>();
         if (result != null) {
-            Iterator<ParseObject> iterator = result.iterator();
+            Iterator<String> iterator = result.iterator();
             while(iterator.hasNext()) {
-                userTiles.add(new Tile(iterator.next().getString("type")));
+                userTiles.add(new Tile(iterator.next()));
             }
         }
 
