@@ -7,4 +7,12 @@
     <string name="title_activity_add_contact">AddContactActivity</string>
     <string name="title_activity_my_tile">MyTileActivity</string>
     <string name="title_activity_view_contact">ViewContactActivity</string>
+
+    <string name="parse_app_id">DhKRZwCbqQ6hVCdJsCL0ta7pHnVlCNI3rPC3RWR4</string>
+    <string name="parse_client_key">mpul5shVY0bRtrTLzxO84mxn52dL1PPBnRyJpOCw</string>
+    <string name="profile_logo_content_description">Logo</string>
+    <string name="profile_title_logged_in">Your are logged in as</string>
+    <string name="profile_logout_button_label">Log out</string>
+    <string name="profile_title_logged_out">You must be logged in to view your profile</string>
+    <string name="profile_login_button_label">Log in</string>
 </resources>
