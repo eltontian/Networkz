@@ -32,7 +32,7 @@
         android:id="@+id/profilePictureImage"
         android:layout_below="@+id/navigationDrawerTopContainer"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/ic_launcher" />
+        android:background="@drawable/user_icon" />
 
     <TextView
         android:layout_width="wrap_content"
