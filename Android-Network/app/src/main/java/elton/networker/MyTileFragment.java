@@ -142,6 +142,14 @@ public class MyTileFragment extends Fragment implements AdapterView.OnItemClickL
         if (requestCode == 0) {
             if (resultCode == Activity.RESULT_OK) {
                 contents = data.getStringExtra("SCAN_RESULT");
+                ParseUser user = ParseUser.getCurrentUser();
+                ArrayList<String> connections = new ArrayList<String>();
+                if(user.getList("connections")!=null) {
+                    connections = (ArrayList) user.getList("connections");
+                }
+                connections.add(contents);
+                user.put("connections", connections);
+                user.saveInBackground();
                 Toast.makeText(mView.getContext(), contents, Toast.LENGTH_LONG).show();
             }
             if(resultCode == Activity.RESULT_CANCELED){

@@ -46,11 +46,14 @@ public class TileCreateActivity extends Activity {
         spinner = (Spinner) findViewById(R.id.tileCreateType);
         value = (EditText) findViewById(R.id.tileCreateValue);
 
-        String[] list = new String[4];
+        String[] list = new String[7];
         list[0] = "LinkedIn";
         list[1] = "Resume";
         list[2] = "Github";
         list[3] = "Email";
+        list[4] = "Phone Number";
+        list[5] = "Facebook";
+        list[6] = "Graduation Date";
 
         ArrayAdapter<String> stringAdapter =
                 new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);

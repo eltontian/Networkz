@@ -82,6 +82,8 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
         getParseData();
         setUpNavigationDrawer();
         setupClosedActionBar();
+        setUpAddTile();
+
     }
 
     private void setupClosedActionBar() {
@@ -118,9 +120,7 @@ public class MainActivity extends ActionBarActivity implements AdapterView.OnIte
     //ParseUser.logOut();
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        if (i == 10) {
-            //getAddConnections();
-        } else if (i == 0) {
+        if (i == 0) {
             setUpViewConnections();
         } else if (i == 1) {
             setUpAddTile();
