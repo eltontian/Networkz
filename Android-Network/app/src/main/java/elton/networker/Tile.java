@@ -52,6 +52,24 @@ public class Tile {
         return tileText;
     }
 
-    public enum TileType { SOCIAL_MEIDA, RESUME, BUSINESS_CARD }
+    public enum TileType {
+        SOCIAL_MEDIA {
+            @Override
+            public String toString() {
+                return "Social Media";
+            }
+        },
+        RESUME {
+            @Override
+            public String toString() {
+                return "Resume";
+            }
+        },
+        BUSINESS_CARD {
+            @Override
+            public String toString() {
+                return "Business Card";
+            }
+        } }
 
 }

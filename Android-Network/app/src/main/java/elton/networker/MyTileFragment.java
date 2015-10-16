@@ -34,6 +34,8 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.parse.ParseUser;
+import com.google.gson.Gson;
+
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -49,6 +51,8 @@ public class MyTileFragment extends Fragment implements AdapterView.OnItemClickL
     private ImageView qr_img;
     private Dialog settingsDialog;
     private ImageButton imageButton;
+    final Gson gson = new Gson();
+
 
 
 
@@ -165,14 +169,23 @@ public class MyTileFragment extends Fragment implements AdapterView.OnItemClickL
         QRCodeWriter writer = new QRCodeWriter();
 
         String user = ParseUser.getCurrentUser().getUsername();
-        String content = "{user:" + user;
+
+
+
+        String content = "";
+        ConnectionObject connection;
+        ArrayList<TileObject> tiles = new ArrayList<TileObject>();
 
         for (Tile t : MainActivity.userTiles) {
             if (t.isChecked()) {
-                content+="," + t.getText();
+                String[] parts = t.getText().split(":");
+                tiles.add(new TileObject(parts[0],parts[1]));
             }
         }
-        content += '}';
+        connection = new ConnectionObject(user,tiles);
+
+        content = gson.toJson(connection);
+
         final Fragment self = this;
         try {
             BitMatrix bitMatrix = writer.encode(content, BarcodeFormat.QR_CODE, 512, 512);
